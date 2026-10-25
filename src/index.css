@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --bg: #070710;
+    --fg: #e6e6f0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(249, 98, 26, 0.35);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0a0a0f; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#3a3a4e, #1c1c2a);
+    border-radius: 9999px;
+    border: 2px solid #0a0a0f;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: linear-gradient(#f9621a, #c2390a); }
+
+  :focus-visible {
+    outline: 2px solid #ff7d3c;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-cine {
+    @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.3em] text-ember-400/80;
+  }
+
+  .heading-display {
+    @apply font-display font-semibold tracking-tight text-ink-100;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ember-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-all duration-300 hover:bg-ember-400 hover:shadow-ember focus-visible:shadow-ember disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:shadow-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink-600 px-6 py-3 text-sm font-medium text-ink-100 transition-all duration-300 hover:border-ember-400/60 hover:text-ember-300 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-ink-600 bg-ink-800/60 px-3 py-1 font-mono text-xs text-ink-200 transition-colors hover:border-ember-400/50 hover:text-ember-300;
+  }
+
+  .card {
+    @apply rounded-2xl border border-ink-700/80 bg-ink-850/60 backdrop-blur-sm transition-all duration-500;
+  }
+
+  .divider-glow {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-ember-500/40 to-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  .perspective-1000 { perspective: 1000px; }
+
+  .glass {
+    background: rgba(14, 14, 24, 0.55);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  .shimmer-text {
+    background: linear-gradient(90deg, #8a8aa3 0%, #e6e6f0 50%, #8a8aa3 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Range slider styling for audio controls */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 9999px;
+  background: #262636;
+  outline: none;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f9621a;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(249, 98, 26, 0.6);
+  transition: transform 0.15s ease;
+}
+.slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: #f9621a;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(249, 98, 26, 0.6);
+}
+
+/* Cinematic Audio Waveform Animations */
+@keyframes audioWaveFlow {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-30px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes audioWaveFlowRev {
+  0% { transform: translateX(-30px); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(-30px); }
+}
+
+.animate-wave-flow {
+  animation: audioWaveFlow 2.8s ease-in-out infinite;
+}
+
+.animate-wave-flow-rev {
+  animation: audioWaveFlowRev 3.4s ease-in-out infinite;
+}
+
+/* Reduced motion: honor user preference globally */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
